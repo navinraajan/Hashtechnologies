@@ -1,0 +1,55 @@
+function isPalindrome(str) {
+    let left = 0;
+    let right = str.length - 1;
+
+    while (left < right) {
+        if (str.charAt(left) !== str.charAt(right)) {
+            return false; 
+        }
+        left++;
+        right--;
+    }
+    return true; // Is a palindrome
+}
+
+function constructSubstring(str, start, end) {
+    let result = '';
+    for (let i = start; i <= end; i++) {
+        result += str.charAt(i);
+    }
+    return result;
+}
+
+function findLongestPalindrome(str) {
+    let maxLength = 0;
+    let longestPalindrome = '';
+    for (let i = 0; i < str.length; i++) {
+        for (let j = i; j < str.length; j++) {
+            const substring = constructSubstring(str, i, j);
+            if (isPalindrome(substring) && substring.length > maxLength) {
+                maxLength = substring.length;
+                longestPalindrome = substring;
+            }
+        }
+    }
+    if (longestPalindrome === '') {
+        return 'No palindrome found';
+    }
+
+    return longestPalindrome;
+}
+const inputString = prompt("String Entered by user: ");
+const result = findLongestPalindrome(inputString);
+console.log(`Longest Palindrome is: ${result}`); 
+
+SAMPLE INPUT 1 : babad 
+SAMPLE OUTPUT 1 : bab
+
+SAMPLE INPUT 2 : racecargfhmam
+SAMPLE OUTPUT 2 : racecar
+
+SAMPLE INPUT 3 : madamadam
+SAMPLE OUTPUT  3 : madamadam
+
+SAMPLE INPUT 4 :  method
+SAMPLE OUTPUT 4 : m
